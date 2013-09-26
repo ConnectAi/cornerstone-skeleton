@@ -1,0 +1,4 @@
+skeleton
+========
+
+Sample Cornerstone application.
