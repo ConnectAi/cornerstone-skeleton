@@ -1,0 +1,21 @@
+{
+  "name": "skeleton",
+  "version": "0.0.0",
+  "description": "Sample Cornerstone application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cornerstone",
+    "skeleton",
+    "framework",
+    "es6",
+    "ConnectAi"
+  ],
+  "author": "ConnectAi",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "cornerstone": "git://github.com/ConnectAi/cornerstone.git"
+  }
+}
