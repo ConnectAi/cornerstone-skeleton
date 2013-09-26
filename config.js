@@ -1,4 +1,5 @@
 var config = {
+	// Generic config settings.
 	name: "Skeleton",
 	port: 8080,
 
@@ -6,12 +7,13 @@ var config = {
 		adapter: "mysql",
 		mysql: {
 			host: "localhost",
-			user: "root",
-			password: "root",
-			database: "someAwesomeDB"
+			user: "",
+			password: "",
+			database: ""
 		}
 	},
 
+	// Set up arbitrary environments with specific config settings.
 	env: {
 		production: {
 			port: 80,
@@ -20,14 +22,15 @@ var config = {
 				adapter: "mysql",
 				mysql: {
 					host: "localhost",
-					user: "awesome",
-					password: "shhItIsASecret",
-					database: "someAwesomeDB"
+					user: "",
+					password: "",
+					database: ""
 				}
 			}
 		},
 
 		development: {
+			// Allows use of debugging features like CS.private.
 			debug: true
 		}
 	}
