@@ -1,7 +1,7 @@
 var config = {
 	// Generic config settings.
 	name: "Skeleton",
-	port: 8080,
+	port: 3000,
 
 	db: {
 		adapter: "mysql",
