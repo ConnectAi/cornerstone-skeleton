@@ -1,4 +1,4 @@
 skeleton
 ========
 
-Sample Cornerstone application.
+Bare Bones Cornerstone application.
