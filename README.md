@@ -1,4 +1,4 @@
 skeleton
 ========
 
-Bare Bones Cornerstone application.
+Bare Bones [Cornerstone](https://github.com/ConnectAi/cornerstone) application.
