@@ -1,0 +1,34 @@
+{
+	"name": "Skeleton",
+	"port": 3000,
+
+	"db": {
+		"adapter": "mysql",
+		"mysql": {
+			"host": "localhost",
+			"user": "",
+			"password": "",
+			"database": ""
+		}
+	},
+
+	"env": {
+		"production": {
+			"port": 80,
+
+			"db": {
+				"adapter": "mysql",
+				"mysql": {
+					"host": "localhost",
+					"user": "",
+					"password": "",
+					"database": ""
+				}
+			}
+		},
+
+		"development": {
+			"debug": true
+		}
+	}
+}
