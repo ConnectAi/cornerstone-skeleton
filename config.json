@@ -2,6 +2,9 @@
 	"name": "Skeleton",
 	"port": 3000,
 
+	"useRedis": false,
+	"useSockets": true,
+
 	"db": {
 		"adapter": "mysql",
 		"mysql": {
