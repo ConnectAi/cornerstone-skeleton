@@ -2,9 +2,9 @@
 	"name": "Skeleton",
 	"port": 3000,
 
-	"useRedis": false,
-	"useSockets": false,
-	"cacheBuster": "git",
+	"session": "memory",
+	"sockets": false,
+	"cacheBuster": false,
 
 	"db": {
 		"adapter": "mysql",

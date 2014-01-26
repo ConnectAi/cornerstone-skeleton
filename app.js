@@ -1,4 +1,6 @@
-if (app.config.useSockets) {
+// Place your startup code here.
+
+if (app.config.sockets) {
 	server.io.sockets.on("connection", function(socket) {
 		console.info("Socket connection established.");
 
