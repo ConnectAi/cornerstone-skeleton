@@ -3,7 +3,8 @@
 	"port": 3000,
 
 	"useRedis": false,
-	"useSockets": true,
+	"useSockets": false,
+	"cacheBuster": "git",
 
 	"db": {
 		"adapter": "mysql",
