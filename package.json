@@ -16,6 +16,6 @@
   "author": "ConnectAi",
   "license": "BSD-2-Clause",
   "dependencies": {
-    "cornerstone": "git://github.com/ConnectAi/cornerstone.git"
+    "cs": "~1.0.0"
   }
 }

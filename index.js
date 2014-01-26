@@ -1,1 +1,1 @@
-require("cornerstone");
+require("cs");
