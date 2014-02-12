@@ -1,6 +1,6 @@
 {
   "name": "skeleton",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Sample Cornerstone application",
   "main": "index.js",
   "scripts": {
