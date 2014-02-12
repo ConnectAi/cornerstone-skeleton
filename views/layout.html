@@ -7,18 +7,24 @@
 	</head>
 
 	<body>
+		<!-- Include the header template -->
 		{{{include "header"}}}
-
+		
+		<!-- This is our main layout HTML -->
 		<div id="main" role="main">
 			{{{body}}}
 		</div>
-
-		<script>
-			window.CS = {{{json exposed}}};
-		</script>
-
+		
+		<!-- The main CS variable. Don't delete this -->
+		<script>window.CS = {{{json exposed}}};</script>
+		
+		<!-- Optionally include SocketIO (not 1.0 ready) -->
 		{{#if config.sockets}}<script src="/socket.io/socket.io.js"></script>{{/if}}
+		
+		<!-- The main JS file, could be anything really -->
 		<script src="/js/main.js"></script>
+		
+		<!-- A place for views to hook into for their one off scripts -->
 		{{{block "scripts"}}}
 	</body>
 </html>
