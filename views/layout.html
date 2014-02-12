@@ -2,8 +2,12 @@
 <html>
 	<head>
 		<title>{{title}}</title>
+		
+		<!-- Our main CSS, matches private/main.styl -->
 		<link rel="stylesheet" href="/css/main.css">
-		{{{block "styles"}}}
+		
+		<!-- Create a hook for one off styles from views -->
+		{{{hook "styles"}}}
 	</head>
 
 	<body>
@@ -12,6 +16,7 @@
 		
 		<!-- This is our main layout HTML -->
 		<div id="main" role="main">
+			<!-- this is where your view loads -->
 			{{{body}}}
 		</div>
 		
@@ -24,7 +29,7 @@
 		<!-- The main JS file, could be anything really -->
 		<script src="/js/main.js"></script>
 		
-		<!-- A place for views to hook into for their one off scripts -->
-		{{{block "scripts"}}}
+		<!-- A hook for one off scripts from views -->
+		{{{hook "scripts"}}}
 	</body>
 </html>
