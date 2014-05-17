@@ -2,38 +2,38 @@
 <html>
 	<head>
 		<title>{{title}}</title>
-		
+
 		<!-- Our main CSS, matches private/main.styl -->
 		<link rel="stylesheet" href="/css/main.css">
 		<link rel="stylesheet" href="http://getbootstrap.com/dist/css/bootstrap.min.css">
-		
+
 		<!-- Create a hook for one off styles from views -->
 		{{{hook "styles"}}}
 	</head>
 
 	<body>
-		
+
 		<div class="container">
 			<!-- Include the header template -->
 			{{{include "header"}}}
-			
+
 			<!-- This is our main layout HTML -->
 			<div id="main" role="main">
 				<!-- this is where your view loads -->
 				{{{body}}}
 			</div>
 		</div>
-		
-		
+
+
 		<!-- The main CS variable. Don't delete this -->
 		<script>window.CS = {{{json exposed}}};</script>
-		
+
 		<!-- Optionally include SocketIO (not 1.0 ready) -->
 		{{#if config.sockets}}<script src="/socket.io/socket.io.js"></script>{{/if}}
-		
+
 		<!-- The main JS file, could be anything really -->
 		<script src="/js/main.js"></script>
-		
+
 		<!-- A hook for one off scripts from views -->
 		{{{hook "scripts"}}}
 	</body>

@@ -1,9 +1,10 @@
 {
 	"name": "Skeleton",
 	"port": 3000,
+	"secret": "Shh! It's a secret.",
 
 	"session": "memory",
-	"sockets": false,
+	"sockets": true,
 	"cacheBuster": false,
 
 	"db": {

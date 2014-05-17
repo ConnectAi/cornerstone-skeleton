@@ -8,6 +8,13 @@ module.exports = {
 	// URL: /hello/world
 	// file: /views/hello/world.html
 	world(req, res) {
-		res.view();
+		res.view({
+			test: app.db.query("select * from user")
+				.then(function(users) {
+					return users.map(function(user) {
+						return `<a href="mailto:${user.email}">${user.name}</a>`;
+					}).join('<br>');
+				})
+		});
 	}
 };
