@@ -11,9 +11,9 @@
 		"adapter": "mysql",
 		"mysql": {
 			"host": "localhost",
-			"user": "",
-			"password": "",
-			"database": ""
+			"user": "root",
+			"password": "root",
+			"database": "mp3car"
 		}
 	},
 

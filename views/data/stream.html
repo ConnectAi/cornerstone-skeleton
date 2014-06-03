@@ -1,0 +1,39 @@
+{{{include "/data/header"}}}
+
+{{#bind "scripts"}}
+	<script>
+		var socket = io.connect();
+
+		socket.on("stream", function(res) {
+			// console.log("stream", res);
+			var key = res[0];
+			var data = res[1];
+
+			if (Array.isArray(data)) {
+				data = data.map(function(item) {
+					return item.product;
+				}).join('<br>');
+			}
+
+			var channels = document.querySelectorAll('var[data-promise="' + key + '"]');
+			Array.prototype.forEach.call(channels, function(element) {
+				element.innerHTML = data;
+			});
+
+			CS.diff();
+		});
+	</script>
+{{/bind}}
+
+<pre id="data">
+0: {{{stream "data0"}}}
+1: {{{stream "data1"}}}
+2: {{{stream "data2"}}}
+3: {{{stream "data3"}}}
+4: {{{stream "data4"}}}
+5: {{{stream "data5"}}}
+6: {{{stream "data6"}}}
+7: {{{stream "data7"}}}
+8: {{{stream "data8"}}}
+9: {{{stream "data9"}}}
+</pre>
