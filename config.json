@@ -6,29 +6,11 @@
 	"sockets": false,
 	"cacheBuster": false,
 
-	"db": {
-		"adapter": "mysql",
-		"mysql": {
-			"host": "localhost",
-			"user": "",
-			"password": "",
-			"database": ""
-		}
-	},
+	"db": {},
 
 	"env": {
 		"production": {
-			"port": 80,
-
-			"db": {
-				"adapter": "mysql",
-				"mysql": {
-					"host": "localhost",
-					"user": "",
-					"password": "",
-					"database": ""
-				}
-			}
+			"port": 80
 		},
 
 		"development": {
