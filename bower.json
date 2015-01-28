@@ -1,0 +1,6 @@
+{
+  "name": "cs-skeleton",
+  "dependencies": {
+    "cs-client": "git://github.com/ConnectAi/cs-client.git#master"
+  }
+}
