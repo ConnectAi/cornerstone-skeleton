@@ -1,15 +1,30 @@
 var fs = require('fs');
 
+
 var query = function(input) {
-	return app.db.query("select id, product from amazon_orders limit 10000")
-		.then(function(results) {
-			return results;
-		});
+	return new Promise(function(resolve, reject) {
+		app.db.collection('user')
+			.find({ social: 'facebook' })
+			.toArray(function(err, results) {
+				resolve(results);
+			});
+	});
 };
 
 var toHTML = function(results) {
 	return results.map(function(item) {
-		return item.product;
+		return `
+			<li>
+				${item.firstName} ${item.lastName}
+				<dl>
+					<dt>username:</dt>
+					<dd>${item.username}</dd>
+
+					<dt>email:</dt>
+					<dd>${item.email}</dd>
+				</dl>
+			</li>
+		`;
 	}).join('<br>');
 };
 
@@ -28,6 +43,7 @@ var makeTimeout = function(n = 1000) {
 		}, n);
 	});
 };
+
 
 module.exports = {
 	'get/:n?'(req, res, next, n) {
@@ -90,12 +106,12 @@ module.exports = {
 			data1: makeTimeout(5e2),
 			data2: makeTimeout(1e1),
 			data3: makeTimeout(),
-			// data4: query(),
+			data4: query(),
 			data5: read(),
 			data6: makeTimeout(2e3),
 			data7: read(),
-			// data8: query().then(toHTML),
+			data8: query().then(toHTML),
 			start
 		});
 	}
-}
+};

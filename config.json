@@ -8,12 +8,9 @@
 	"cacheBuster": false,
 
 	"db": {
-		"adapter": "mysql",
-		"mysql": {
-			"host": "localhost",
-			"user": "root",
-			"password": "root",
-			"database": "mp3car"
+		"adapter": "mongodb",
+		"mongodb": {
+			"host": "mongodb://localhost:27017/sixtyvocab"
 		}
 	},
 
@@ -22,7 +19,7 @@
 			"port": 80,
 
 			"db": {
-				"adapter": "mysql",
+				"adapter": "mongodb",
 				"mysql": {
 					"host": "localhost",
 					"user": "",

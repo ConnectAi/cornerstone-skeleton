@@ -11,7 +11,17 @@
 
 			if (Array.isArray(data)) {
 				data = data.map(function(item) {
-					return item.product;
+					return '' +
+						'<li>' +
+							item.firstName + ' ' + item.lastName +
+							'<dl>' +
+								'<dt>username:</dt>' +
+								'<dd>' + item.username + '</dd>' +
+
+								'<dt>email:</dt>' +
+								'<dd>' + item.email + '</dd>' +
+							'</dl>' +
+						'</li>';
 				}).join('<br>');
 			}
 

@@ -16,6 +16,7 @@
   "author": "ConnectAi",
   "license": "BSD-2-Clause",
   "dependencies": {
-    "cs": "~1.0.0"
+    "cs": "~1.0.0",
+    "cs-mongo": "file:../../../../../../../tmp/npm-14457-f40955e6/git-cache-2e09db12b6f6/7f4b657898081b4987fcb22659602e93bdaefdf7"
   }
 }
