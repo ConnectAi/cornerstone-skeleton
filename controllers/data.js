@@ -1,4 +1,5 @@
 var fs = require('fs');
+var request = require('request');
 
 
 var query = function(input) {
@@ -30,8 +31,8 @@ var toHTML = function(results) {
 
 var read = function(input) {
 	return new Promise(function(resolve, reject) {
-		fs.readFile('/home/ross/dev/test/aoeu.txt', function(err, data) {
-			resolve('read');
+		request('http://www.gutenberg.org/files/2701/old/moby10b.txt', function(err, response, body) {
+			resolve('body');
 		});
 	});
 };
@@ -76,11 +77,11 @@ module.exports = {
 			makeTimeout(5e2),
 			makeTimeout(1e1),
 			makeTimeout(),
-			// query(),
+			query(),
 			read(),
 			makeTimeout(2e3),
 			read(),
-			// query().then(toHTML),
+			query().then(toHTML),
 		])
 		.then(function([data0, data1, data2, data3, data4, data5, data6, data7, data8, data9]) {
 			res.view({
@@ -88,11 +89,11 @@ module.exports = {
 				data1,
 				data2,
 				data3,
-				// data4,
+				data4,
 				data5,
 				data6,
 				data7,
-				// data8,
+				data8,
 				start
 			});
 		});

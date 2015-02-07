@@ -16,8 +16,18 @@
 
 					if (Array.isArray(data)) {
 						data = data.map(function(item) {
-							return item.product;
-						}).join('<br>');
+							return '' +
+								'<li>' +
+									item.firstName + ' ' + item.lastName +
+									'<dl>' +
+										'<dt>username:</dt>' +
+										'<dd>' + item.username + '</dd>' +
+
+										'<dt>email:</dt>' +
+										'<dd>' + item.email + '</dd>' +
+									'</dl>' +
+								'</li>';
+						}).join('');
 					}
 
 					document.querySelector('[data-promise="data' + which + '"]').innerHTML = data;
@@ -33,11 +43,11 @@
 		makeRequest(5e2);
 		makeRequest(1e1);
 		makeRequest();
-		// makeRequest('query');
+		makeRequest('query');
 		makeRequest('read');
 		makeRequest(2e3);
 		makeRequest('read');
-		// makeRequest('query:html');
+		makeRequest('query:html');
 	</script>
 {{/bind}}
 

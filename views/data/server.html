@@ -11,7 +11,8 @@
 1: <var data-promise="data1">{{{data1}}}</var>
 2: <var data-promise="data2">{{{data2}}}</var>
 3: <var data-promise="data3">{{{data3}}}</var>
-4: <var data-promise="data4">{{{data4}}}</var>
+4: <var data-promise="data4">{{#each data4}}
+<li>{{firstName}} {{lastName}}<dl><dt>username:</dt><dd>{{username}}</dd><dt>email:</dt><dd>{{email}}</dd></dl></li>{{/each}}</var>
 5: <var data-promise="data5">{{{data5}}}</var>
 6: <var data-promise="data6">{{{data6}}}</var>
 7: <var data-promise="data7">{{{data7}}}</var>

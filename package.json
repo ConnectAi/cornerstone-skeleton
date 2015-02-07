@@ -17,6 +17,7 @@
   "license": "BSD-2-Clause",
   "dependencies": {
     "cs": "~1.0.0",
-    "cs-mongo": "file:../../../../../tmp/npm-23225-ca8b325b/git-cache-4c24301a28b6/9dfbe62a2bc5c9ce02b948b59a8f15de71b829ef"
+    "cs-mongo": "file:../../../../../tmp/npm-23225-ca8b325b/git-cache-4c24301a28b6/9dfbe62a2bc5c9ce02b948b59a8f15de71b829ef",
+    "request": "^2.53.0"
   }
 }
