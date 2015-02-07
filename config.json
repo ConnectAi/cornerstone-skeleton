@@ -4,6 +4,7 @@
 	"secret": "Shh! It's a secret.",
 
 	"session": "memory",
+	"secret": "Shh! It's a secret.",
 	"sockets": true,
 	"cacheBuster": false,
 

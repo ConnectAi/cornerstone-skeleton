@@ -6,6 +6,7 @@
 		<!-- Our main CSS, matches private/main.styl -->
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 		<link rel="stylesheet" href="/css/main.css">
+		<link rel="stylesheet" href="http://getbootstrap.com/dist/css/bootstrap.min.css">
 
 		<!-- Create a hook for one off styles from views -->
 		{{{hook "styles"}}}
@@ -24,13 +25,16 @@
 			</div>
 		</div>
 
-
-		<!-- The main CS variable. Don't delete this -->
-		<script>window.CS = {{{json exposed}}};</script>
-
-		<!-- Optionally include SocketIO (not 1.0 ready) -->
+		<!-- Optionally include SocketIO -->
 		{{#if config.sockets}}<script src="/socket.io/socket.io.js"></script>{{/if}}
 
+		<!-- Vendor packages -->
+		<script src="/bower_components/cs-client/cs.js"></script>
+
+		<!-- Initialize cs-client -->
+		<script>CS.init({{{json exposed}}});</script>
+
+		<!-- The main JS file -->
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<script src="/js/main.js"></script>
