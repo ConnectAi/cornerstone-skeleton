@@ -1,5 +1,6 @@
 {{{include "/data/header"}}}
 
+
 {{#bind "scripts"}}
 	<script>
 		var socket = io.connect();
@@ -8,22 +9,6 @@
 			// console.log("stream", res);
 			var key = res[0];
 			var data = res[1];
-
-			if (Array.isArray(data)) {
-				data = data.map(function(item) {
-					return '' +
-						'<li>' +
-							item.firstName + ' ' + item.lastName +
-							'<dl>' +
-								'<dt>username:</dt>' +
-								'<dd>' + item.username + '</dd>' +
-
-								'<dt>email:</dt>' +
-								'<dd>' + item.email + '</dd>' +
-							'</dl>' +
-						'</li>';
-				}).join('');
-			}
 
 			var channels = document.querySelectorAll('var[data-promise="' + key + '"]');
 			Array.prototype.forEach.call(channels, function(element) {
@@ -35,15 +20,9 @@
 	</script>
 {{/bind}}
 
+
 <pre id="data">
-0: {{{stream "data0"}}}
-1: {{{stream "data1"}}}
-2: {{{stream "data2"}}}
-3: {{{stream "data3"}}}
-4: {{{stream "data4"}}}
-5: {{{stream "data5"}}}
-6: {{{stream "data6"}}}
-7: {{{stream "data7"}}}
-8: {{{stream "data8"}}}
-9: {{{stream "data9"}}}
+{{#each data}}
+{{@index}}: <var data-promise="{{@index}}"></var>
+{{/each}}
 </pre>

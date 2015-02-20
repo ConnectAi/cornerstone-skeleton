@@ -2,11 +2,24 @@
 	<script src="/js/views/data/index.js"></script>
 {{/bind}}
 
-<ul>
-	<li><a href="/data/server">/data/server</a></li>
-	<li><a href="/data/ajax">/data/ajax</a></li>
-	<li><a href="/data/stream">/data/stream</a></li>
+<ul class="pull-right">
+	<li><a href="/data/server/{{params.test}}/{{params.variant}}">server</a></li>
+	<li><a href="/data/ajax/{{params.test}}/{{params.variant}}">ajax</a></li>
+	<li><a href="/data/stream/{{params.test}}/{{params.variant}}">stream</a></li>
 </ul>
+
+
+<ul class="pull-right">
+	<li><a href="/data/{{method}}/timeout/{{params.variant}}">timeout</a></li>
+</ul>
+
+
+<ul class="pull-right">
+	<li><a href="/data/{{method}}/{{params.test}}/1">1</a></li>
+	<li><a href="/data/{{method}}/{{params.test}}/2">2</a></li>
+	<li><a href="/data/{{method}}/{{params.test}}/3">3</a></li>
+</ul>
+
 
 <dl>
 	<dt>start</dt>

@@ -1,36 +1,27 @@
 {{{include "/data/header"}}}
 
+
 {{#bind "scripts"}}
 	<script>
 		var count = 0;
-		var makeRequest = function(n) {
+
+		var makeRequest = function(test, variant) {
 			var xhr = new XMLHttpRequest();
 
-			n = (n) ? '/' + n : '';
-			xhr.open('GET', '/data/get' + n);
+			var endpoint = '/' + test;
+			if (variant) endpoint += '/' + variant;
+
+			xhr.open('GET', '/data/get' + endpoint);
 
 			var which = count++;
+
+			document.getElementById('data').innerHTML += which + ': <var data-promise="' + which + '"></var>\n';
+
 			xhr.onload = function() {
 				if (this.status === 200) {
 					var data = JSON.parse(this.response);
 
-					if (Array.isArray(data)) {
-						data = data.map(function(item) {
-							return '' +
-								'<li>' +
-									item.firstName + ' ' + item.lastName +
-									'<dl>' +
-										'<dt>username:</dt>' +
-										'<dd>' + item.username + '</dd>' +
-
-										'<dt>email:</dt>' +
-										'<dd>' + item.email + '</dd>' +
-									'</dl>' +
-								'</li>';
-						}).join('');
-					}
-
-					document.querySelector('[data-promise="data' + which + '"]').innerHTML = data;
+					document.querySelector('[data-promise="' + which + '"]').innerHTML = data;
 
 					CS.diff();
 				}
@@ -39,27 +30,10 @@
 			xhr.send();
 		};
 
-		makeRequest('read');
-		makeRequest(5e2);
-		makeRequest(1e1);
-		makeRequest();
-		makeRequest('query');
-		makeRequest('read');
-		makeRequest(2e3);
-		makeRequest('read');
-		makeRequest('query:html');
+
+		makeRequest('{{params.test}}', '{{params.variant}}');
 	</script>
 {{/bind}}
 
-<pre id="data">
-0: <var data-promise="data0"></var>
-1: <var data-promise="data1"></var>
-2: <var data-promise="data2"></var>
-3: <var data-promise="data3"></var>
-4: <var data-promise="data4"></var>
-5: <var data-promise="data5"></var>
-6: <var data-promise="data6"></var>
-7: <var data-promise="data7"></var>
-8: <var data-promise="data8"></var>
-9: <var data-promise="data9"></var>
-</pre>
+
+<pre id="data"></pre>

@@ -1,21 +1,15 @@
 {{{include "/data/header"}}}
 
+
 {{#bind "scripts"}}
 	<script>
 		CS.diff();
 	</script>
 {{/bind}}
 
+
 <pre id="data">
-0: <var data-promise="data0">{{{data0}}}</var>
-1: <var data-promise="data1">{{{data1}}}</var>
-2: <var data-promise="data2">{{{data2}}}</var>
-3: <var data-promise="data3">{{{data3}}}</var>
-4: <var data-promise="data4">{{#each data4}}
-<li>{{firstName}} {{lastName}}<dl><dt>username:</dt><dd>{{username}}</dd><dt>email:</dt><dd>{{email}}</dd></dl></li>{{/each}}</var>
-5: <var data-promise="data5">{{{data5}}}</var>
-6: <var data-promise="data6">{{{data6}}}</var>
-7: <var data-promise="data7">{{{data7}}}</var>
-8: <var data-promise="data8">{{{data8}}}</var>
-9: <var data-promise="data9">{{{data9}}}</var>
+{{#each data}}
+{{@index}}: <var data-promise="data{{@index}}">{{{this}}}</var>
+{{/each}}
 </pre>
