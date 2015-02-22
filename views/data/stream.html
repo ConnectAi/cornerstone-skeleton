@@ -3,26 +3,28 @@
 
 {{#bind "scripts"}}
 	<script>
-		var socket = io.connect();
+		var key, data, channels;
 
-		socket.on("stream", function(res) {
-			// console.log("stream", res);
-			var key = res[0];
-			var data = res[1];
+		CS.diff();
 
-			var channels = document.querySelectorAll('var[data-promise="' + key + '"]');
+		io.connect().on("stream", function(res) {
+			CS.diff();
+			console.log('aoeu', res);
+
+			key = res[0];
+			data = res[1];
+
+			channels = document.querySelectorAll('var[data-promise="' + key + '"]');
 			Array.prototype.forEach.call(channels, function(element) {
 				element.innerHTML = data;
 			});
-
-			CS.diff();
 		});
 	</script>
 {{/bind}}
 
 
 <pre id="data">
-{{#each data}}
+{{#each promises}}
 {{@index}}: <var data-promise="{{@index}}"></var>
 {{/each}}
 </pre>

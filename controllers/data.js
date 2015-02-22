@@ -46,75 +46,110 @@ let makeTimeout = function(n = 1000) {
 };
 
 
-let tests = {
-	timeout: function(variant) {
-		let time;
+let scenarios = {
 
-		switch (variant) {
-			case '1':
-				time = 0;
-				break;
-			case '2':
-				time = 2000;
-				break;
-			case '3':
-				time = 10000;
-				break;
+	base: {
+		variants: 1,
+		run: function(variant) {
+			return [ Promise.resolve('base') ];
 		}
+	},
 
-		return [ makeTimeout(time) ];
+	timeout: {
+		variants: 9,
+		run: function(variant) {
+			let time;
+
+			switch (variant) {
+				case '1':
+					time = 0;
+					break;
+				case '2':
+					time = 2000;
+					break;
+				case '3':
+					time = 4000;
+					break;
+				case '4':
+					time = 6000;
+					break;
+				case '5':
+					time = 8000;
+					break;
+				case '6':
+					time = 10000;
+					break;
+				case '7':
+					time = 20000;
+					break;
+				case '8':
+					time = 40000;
+					break;
+				case '9':
+					time = 60000;
+					break;
+			}
+
+			return [ makeTimeout(time) ];
+		}
 	}
+
 };
 
 
 module.exports = {
 
-	"server/:test/:variant"(req, res, next, test, variant) {
-		res.locals.method = 'server';
+	":method/:scenario/:variant/:index?"(req, res, next, method, scenario, variant, index) {
+		let scenario = scenarios[scenario];
 
-		let start = Date.now();
-		let promises = tests[test](variant);
+		res.locals.start = Date.now();
+		res.locals.method = method;
+		res.locals.scenarios = Object.keys(scenarios);
+		res.locals.variants = scenario.variants + 1;
+
+		res.state = {
+			promises: scenario.run(variant),
+		};
+
+		next();
+	},
+
+	"server/:scenario/:variant"(req, res, next, scenario, variant) {
+		let promises = res.state.promises;
 
 		Promise.all(promises)
 		.then(function(data) {
 			res.view({
 				data,
-				start
 			});
 		});
 	},
 
 
-	"ajax/:test/:variant"(req, res) {
-		res.locals.method = 'ajax';
-
-		let start = Date.now();
+	"ajax/:scenario/:variant"(req, res, next, scenario, variant) {
+		let promises = res.state.promises;
 
 		res.view({
-			start
+			numRequests: promises.length,
 		});
 	},
 
 
-	'get/:test/:variant?'(req, res, next, test, variant) {
-		let promises = tests[test](variant);
+	'get/:scenario/:variant/:index'(req, res, next, scenario, variant, index) {
+		let promises = res.state.promises;
 
-		Promise.all(promises)
+		promises[index]
 			.then(function(data) {
 				res.json(data);
 			});
 	},
 
 
-	"stream/:test/:variant"(req, res, next, test, variant) {
-		res.locals.method = 'stream';
-
-		let start = Date.now();
-		let promises = tests[test](variant);
+	"stream/:scenario/:variant"(req, res, next, scenario, variant) {
+		let promises = res.state.promises;
 
 		res.view({
 			promises,
-			start
 		});
 	}
 

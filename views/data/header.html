@@ -1,23 +1,21 @@
-{{#bind "scripts"}}
-	<script src="/js/views/data/index.js"></script>
-{{/bind}}
-
 <ul class="pull-right">
-	<li><a href="/data/server/{{params.test}}/{{params.variant}}">server</a></li>
-	<li><a href="/data/ajax/{{params.test}}/{{params.variant}}">ajax</a></li>
-	<li><a href="/data/stream/{{params.test}}/{{params.variant}}">stream</a></li>
+	<li><a href="/data/server/{{params.scenario}}/{{params.variant}}">server</a></li>
+	<li><a href="/data/ajax/{{params.scenario}}/{{params.variant}}">ajax</a></li>
+	<li><a href="/data/stream/{{params.scenario}}/{{params.variant}}">stream</a></li>
 </ul>
 
 
 <ul class="pull-right">
-	<li><a href="/data/{{method}}/timeout/{{params.variant}}">timeout</a></li>
+	{{#each scenarios}}
+		<li><a href="/data/{{../method}}/{{this}}/{{../params.variant}}">{{this}}</a></li>
+	{{/each}}
 </ul>
 
 
 <ul class="pull-right">
-	<li><a href="/data/{{method}}/{{params.test}}/1">1</a></li>
-	<li><a href="/data/{{method}}/{{params.test}}/2">2</a></li>
-	<li><a href="/data/{{method}}/{{params.test}}/3">3</a></li>
+	{{#for 1 variants 1}}
+		<li><a href="/data/{{../method}}/{{../params.scenario}}/{{this}}">{{this}}</a></li>
+	{{/for}}
 </ul>
 
 
@@ -29,11 +27,11 @@
 
 	<dt>end</dt>
 	<dd>
-		<output id="end"></output>
+		<output id="end">_</output>
 	</dd>
 
 	<dt>total</dt>
 	<dd>
-		<output id="total"></output>
+		<output id="total">_</output>
 	</dd>
 </dl>

@@ -3,25 +3,18 @@
 
 {{#bind "scripts"}}
 	<script>
-		var count = 0;
-
-		var makeRequest = function(test, variant) {
+		var makeRequest = function(scenario, variant, index) {
 			var xhr = new XMLHttpRequest();
 
-			var endpoint = '/' + test;
-			if (variant) endpoint += '/' + variant;
+			var endpoint = '/' + scenario + '/' + variant + '/' + index;
 
 			xhr.open('GET', '/data/get' + endpoint);
-
-			var which = count++;
-
-			document.getElementById('data').innerHTML += which + ': <var data-promise="' + which + '"></var>\n';
 
 			xhr.onload = function() {
 				if (this.status === 200) {
 					var data = JSON.parse(this.response);
 
-					document.querySelector('[data-promise="' + which + '"]').innerHTML = data;
+					document.querySelector('[data-promise="' + index + '"]').innerHTML = data;
 
 					CS.diff();
 				}
@@ -31,9 +24,13 @@
 		};
 
 
-		makeRequest('{{params.test}}', '{{params.variant}}');
+		{{#for 0 numRequests 1}}
+			makeRequest('{{../params.scenario}}', '{{../params.variant}}', {{this}});
+		{{/for}}
 	</script>
 {{/bind}}
 
-
-<pre id="data"></pre>
+<pre id="data">
+{{#for 0 numRequests 1}}{{this}}: <var data-promise="{{this}}"></var>
+{{/for}}
+</pre>
