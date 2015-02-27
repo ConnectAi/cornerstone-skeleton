@@ -12,9 +12,7 @@
 
 			xhr.onload = function() {
 				if (this.status === 200) {
-					var data = JSON.parse(this.response);
-
-					document.querySelector('[data-promise="' + index + '"]').innerHTML = data;
+					document.querySelector('[data-promise="' + index + '"]').innerHTML = this.response;
 
 					CS.diff();
 				}

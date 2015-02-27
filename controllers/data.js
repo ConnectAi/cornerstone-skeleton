@@ -1,38 +1,45 @@
 let fs = require('fs');
 let request = require('request');
+let shell = require('shelljs');
 
 
-let query = function(input) {
+let query = function(collection) {
 	return new Promise(function(resolve, reject) {
-		app.db.collection('user')
-			.find({ social: 'facebook' })
+		app.db.collection(collection)
+			.find()
 			.toArray(function(err, results) {
 				resolve(results);
 			});
 	});
 };
 
-let toHTML = function(results) {
-	return results.map(function(item) {
-		return `
-			<li>
-				${item.firstName} ${item.lastName}
-				<dl>
-					<dt>username:</dt>
-					<dd>${item.username}</dd>
-
-					<dt>email:</dt>
-					<dd>${item.email}</dd>
-				</dl>
-			</li>
-		`;
-	}).join('<br>');
-};
-
-let read = function(input) {
+let read = function() {
 	return new Promise(function(resolve, reject) {
 		request('http://www.gutenberg.org/files/2701/old/moby10b.txt', function(err, response, body) {
 			resolve('body');
+		});
+	});
+};
+
+let readFile = function(file) {
+	return new Promise(function(resolve, reject) {
+		fs.readFile(`/tmp/thesis/${file}`, function(err, data) {
+			if (err) return reject(err);
+			resolve(data);
+		});
+	});
+};
+
+let readRemoteFile = function(file) {
+	let tmpPath = '/tmp/thesis';
+	let localPath = '/tmp/thesis/remote';
+	let filePath = `${localPath}/${file}`;
+
+	return new Promise(function(resolve, reject) {
+		shell.rm(filePath);
+
+		shell.exec(`scp ross@${app.config.thesis.scp}:${tmpPath}/${file} ${localPath}`, function() {
+			resolve(readFile(file));
 		});
 	});
 };
@@ -50,13 +57,65 @@ let scenarios = {
 
 	base: {
 		variants: 1,
+		promises: 1,
 		run: function(variant) {
 			return [ Promise.resolve('base') ];
 		}
 	},
 
+	'local-file': {
+		variants: 4,
+		promises: 1,
+		run: function(variant) {
+			return [ readFile(`file-${variant}`) ];
+		}
+	},
+
+	'remote-file': {
+		variants: 4,
+		promises: 1,
+		run: function(variant) {
+			return [ readRemoteFile(`file-${variant}`) ];
+		}
+	},
+
+	'local-database': {
+		variants: 10,
+		promises: 1,
+		run: function(variant) {
+			let collection = `test-${variant}`;
+			return [ query(collection) ];
+		}
+	},
+
+	'remote-database': {
+		variants: 10,
+		promises: 1,
+		run: function(variant) {
+			let collection = `test-${variant}`;
+			return [ query(collection) ];
+		}
+	},
+
+	'local-endpoint': {
+		variants: 3,
+		promises: 1,
+		run: function(variant) {
+			return [];
+		}
+	},
+
+	'remote-endpoint': {
+		variants: 3,
+		promises: 1,
+		run: function(variant) {
+			return [];
+		}
+	},
+
 	timeout: {
 		variants: 9,
+		promises: 1,
 		run: function(variant) {
 			let time;
 
@@ -99,8 +158,12 @@ let scenarios = {
 
 module.exports = {
 
+	"endpoint"(req, res) {
+
+	},
+
 	":method/:scenario/:variant/:index?"(req, res, next, method, scenario, variant, index) {
-		let scenario = scenarios[scenario];
+		scenario = scenarios[scenario];
 
 		res.locals.start = Date.now();
 		res.locals.method = method;
@@ -108,14 +171,14 @@ module.exports = {
 		res.locals.variants = scenario.variants + 1;
 
 		res.state = {
-			promises: scenario.run(variant),
+			scenario
 		};
 
 		next();
 	},
 
 	"server/:scenario/:variant"(req, res, next, scenario, variant) {
-		let promises = res.state.promises;
+		let promises = res.state.scenario.run(variant);
 
 		Promise.all(promises)
 		.then(function(data) {
@@ -127,16 +190,14 @@ module.exports = {
 
 
 	"ajax/:scenario/:variant"(req, res, next, scenario, variant) {
-		let promises = res.state.promises;
-
 		res.view({
-			numRequests: promises.length,
+			numRequests: res.state.scenario.promises,
 		});
 	},
 
 
 	'get/:scenario/:variant/:index'(req, res, next, scenario, variant, index) {
-		let promises = res.state.promises;
+		let promises = res.state.scenario.run(variant);
 
 		promises[index]
 			.then(function(data) {
@@ -146,10 +207,10 @@ module.exports = {
 
 
 	"stream/:scenario/:variant"(req, res, next, scenario, variant) {
-		let promises = res.state.promises;
+		let promises = res.state.scenario.run(variant);
 
 		res.view({
-			promises,
+			promises
 		});
 	}
 

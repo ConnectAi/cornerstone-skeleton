@@ -9,10 +9,9 @@
 
 		io.connect().on("stream", function(res) {
 			CS.diff();
-			console.log('aoeu', res);
 
 			key = res[0];
-			data = res[1];
+			data = JSON.stringify(res[1]);
 
 			channels = document.querySelectorAll('var[data-promise="' + key + '"]');
 			Array.prototype.forEach.call(channels, function(element) {

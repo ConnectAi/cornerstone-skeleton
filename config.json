@@ -11,8 +11,12 @@
 	"db": {
 		"adapter": "mongodb",
 		"mongodb": {
-			"host": "mongodb://localhost:27017/sixtyvocab"
+			"host": "mongodb://localhost:27017/thesis"
 		}
+	},
+
+	"thesis": {
+		"scp": "rhadden.com"
 	},
 
 	"env": {
